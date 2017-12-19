@@ -3,12 +3,15 @@ package com.codestranodestra.slackhub.spring.slackhubspring.controller;
 import com.codestranodestra.slackhub.spring.slackhubspring.model.User;
 import com.codestranodestra.slackhub.spring.slackhubspring.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.Collection;
+
+import static org.springframework.http.HttpStatus.GONE;
 
 
 @RestController
@@ -54,10 +57,12 @@ public class UserController {
     public ResponseEntity<Void> deleteMessage(@PathVariable Integer userId) {
         userService.deleteUserById(userId);
 
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .buildAndExpand().toUri();
+//        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+//                .buildAndExpand().toUri();
+//
+//        return ResponseEntity.created(location).build();
 
-        return ResponseEntity.created(location).build();
+        return ResponseEntity.status(GONE).build();
     }
 
 }

@@ -132,9 +132,9 @@ public class UserControllerTest {
         MvcResult result = mockMvc.perform(requestBuilder).andReturn();
         MockHttpServletResponse response = result.getResponse();
 
-        assertEquals(HttpStatus.CREATED.value(), response.getStatus());
-        assertEquals("http://localhost/users/2",
-                response.getHeader(HttpHeaders.LOCATION));
+        assertEquals(HttpStatus.GONE.value(), response.getStatus());
+//        assertEquals("http://localhost/users/2",
+//                response.getHeader(HttpHeaders.LOCATION));
     }
 
 }
