@@ -9,6 +9,7 @@ import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
@@ -17,7 +18,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
 import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -61,16 +64,77 @@ public class UserControllerTest {
 
     }
 
+    @Test
+    public void getUserByIdTest() throws Exception {
+
+        Mockito.when(
+                userService.getUserById(Mockito.anyInt())).thenReturn(mockUser);
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.get(
+                "/users/1").accept(
+                MediaType.APPLICATION_JSON).content(exampleUserJSON)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+        System.out.println(result.getResponse());
+        String expected = "{\"userId\":1,\"name\":\"WorstMovieEver\",\"userName\":null,\"password\":null}";
+
+        JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), false);
+    }
+
+    @Test
+    public void createUserTest() throws Exception {
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders
+                .post("/users")
+                .accept(MediaType.APPLICATION_JSON).content(exampleUserJSON)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+        MockHttpServletResponse response = result.getResponse();
+
+        assertEquals(HttpStatus.CREATED.value(), response.getStatus());
+
+        assertEquals("http://localhost/users/1",
+                response.getHeader(HttpHeaders.LOCATION));
+
+    }
+
+    @Test
+    public void updateUserTest() throws Exception {
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.put(
+                "/users/1")
+                .accept(MediaType.APPLICATION_JSON).content(exampleUserJSON)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+
+        MockHttpServletResponse response = result.getResponse();
+
+        System.out.println(result.getResponse());
+
+        assertEquals(HttpStatus.CREATED.value(), response.getStatus());
+        assertEquals("http://localhost/users/1",
+                response.getHeader(HttpHeaders.LOCATION));
+
+    }
+
+    @Test
+    public void deleteMessageTest() throws Exception {
+
+        RequestBuilder requestBuilder = MockMvcRequestBuilders.delete(
+                "/users/2")
+                .accept(MediaType.APPLICATION_JSON);
+
+        MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+        MockHttpServletResponse response = result.getResponse();
+
+        assertEquals(HttpStatus.CREATED.value(), response.getStatus());
+        assertEquals("http://localhost/users/2",
+                response.getHeader(HttpHeaders.LOCATION));
+    }
+
 }
-//public class UserControllerTest {
-//    @Test
-//    public void getAllUsers() throws Exception {
-//
-//
-//    }
-//
-//    @Test
-//    public void getUserById() throws Exception {
-//    }
-//
-//}

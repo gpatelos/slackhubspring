@@ -16,23 +16,23 @@ public class UserService {
     private UserDao userDao;
 
 
-    public Collection<User> getAllUsers(){
+    public Collection<User> getAllUsers() {
         return this.userDao.getAllUsers();
     }
 
-    public User getUserById(Integer id){
+    public User getUserById(Integer id) {
         return this.userDao.getUserById(id);
     }
 
-    public void deleteUserById(Integer id){
+    public void deleteUserById(Integer id) {
         this.userDao.removeUserById(id);
     }
 
-    public void updateUser(User user){
+    public void updateUser(User user) {
         this.userDao.updateUser(user);
     }
 
-    public void createUser(User user){
+    public void createUser(User user) {
         this.userDao.insertUserToDb(user);
     }
 

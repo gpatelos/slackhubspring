@@ -7,14 +7,14 @@ public class User {
     private String userName;
     private String password;
 
-    private static Integer nextUserId= 1;
+    private static Integer nextUserId = 1;
 
-    public User(){
+    public User() {
 
     }
 
     public User(String name) {
-        this.name=name;
+        this.name = name;
         this.userId = nextUserId;
         nextUserId++;
 

@@ -15,23 +15,23 @@ public class MessageService {
     @Qualifier("fakeMessage")
     private MessageDao messageDao;
 
-    public Collection<Message> getAllMessages(){
+    public Collection<Message> getAllMessages() {
         return this.messageDao.getAllMessages();
     }
 
-    public Message getMessageById(Integer id){
+    public Message getMessageById(Integer id) {
         return this.messageDao.getMessageById(id);
     }
 
-    public void deleteMessageById(Integer id){
+    public void deleteMessageById(Integer id) {
         this.messageDao.removeMesssageById(id);
     }
 
-    public void updateMessage(Message message){
+    public void updateMessage(Message message) {
         this.messageDao.updateMessage(message);
     }
 
-    public void createMessge(Message message){
+    public void createMessge(Message message) {
         this.messageDao.insertMessageToDb(message);
     }
 

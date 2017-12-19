@@ -13,8 +13,9 @@ public class Message {
     private static Integer nextMessageId = 1;
 
 
-    public Message(){
+    public Message() {
     }
+
     public Message(String messageBody, Integer userId) {
         this.messageBody = messageBody;
         this.userId = userId;

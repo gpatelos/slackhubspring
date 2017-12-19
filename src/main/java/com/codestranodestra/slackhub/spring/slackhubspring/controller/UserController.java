@@ -39,31 +39,25 @@ public class UserController {
         return ResponseEntity.created(location).build();
     }
 
-//    @PutMapping("/users/{userId}/messages/{messageId}")
-//    public ResponseEntity<Void> updateMessage(@PathVariable Integer userId,
-//                                              @PathVariable Integer messageId,
-//                                              @RequestBody Message newMessage) {
-//
-//        Message message = userService.updateMessageNew(userId, messageId, newMessage);
-//
-//        if (message == null)
-//            return ResponseEntity.noContent().build();
-//
-//        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-//                .buildAndExpand(message.getMessageId()).toUri();
-//
-//        return ResponseEntity.created(location).build();
-//    }
-//
-//    @DeleteMapping("/users/{userId}/messages/{messageId}")
-//    public ResponseEntity<Void> deleteMessage(@PathVariable Integer userId,
-//                                              @PathVariable Integer messageId) {
-//        Message message = userService.deleteMessage(userId, messageId);
-//
-//        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-//                .buildAndExpand(message.getMessageId()).toUri();
-//
-//        return ResponseEntity.created(location).build();
-//    }
+    @PutMapping("/users/{userId}")
+    public ResponseEntity<Void> updateUser(@RequestBody User updatedUser) {
+
+        userService.updateUser(updatedUser);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .buildAndExpand(updatedUser.getUserId()).toUri();
+
+        return ResponseEntity.created(location).build();
+    }
+
+    @DeleteMapping("/users/{userId}")
+    public ResponseEntity<Void> deleteMessage(@PathVariable Integer userId) {
+        userService.deleteUserById(userId);
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .buildAndExpand().toUri();
+
+        return ResponseEntity.created(location).build();
+    }
 
 }
